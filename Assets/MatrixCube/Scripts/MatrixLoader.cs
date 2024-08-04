@@ -20,24 +20,30 @@ public class MatrixLoader
     }
 
     public void ExportOffsetsToJson(List<Matrix4x4> offsets, string filePath)
-    {
-        float[][] offsetData = new float[offsets.Count][];
+	{
+		if (offsets == null || offsets.Count == 0)
+		{
+			Debug.LogError("Offsets list is empty or null.");
+			return;
+		}
+		MatrixData[] offsetData = new MatrixData[offsets.Count];
 
-        for (int i = 0; i < offsets.Count; i++)
-        {
-            Matrix4x4 matrix = offsets[i];
-            offsetData[i] = new float[]
-            {
-                matrix[0, 0], matrix[0, 1], matrix[0, 2], matrix[0, 3],
-                matrix[1, 0], matrix[1, 1], matrix[1, 2], matrix[1, 3],
-                matrix[2, 0], matrix[2, 1], matrix[2, 2], matrix[2, 3],
-                matrix[3, 0], matrix[3, 1], matrix[3, 2], matrix[3, 3]
-            };
-        }
+		for (int i = 0; i < offsets.Count; i++)
+		{
+			Matrix4x4 matrix = offsets[i];
+			offsetData[i] = new MatrixData
+			{
+				m00 = matrix.m00, m01 = matrix.m01, m02 = matrix.m02, m03 = matrix.m03,
+				m10 = matrix.m10, m11 = matrix.m11, m12 = matrix.m12, m13 = matrix.m13,
+				m20 = matrix.m20, m21 = matrix.m21, m22 = matrix.m22, m23 = matrix.m23,
+				m30 = matrix.m30, m31 = matrix.m31, m32 = matrix.m32, m33 = matrix.m33
+			};
+		}
+		MatrixDataArrayWrapper wrapper = new MatrixDataArrayWrapper { matrices = offsetData };
+		string json = JsonUtility.ToJson(wrapper, true); 
+		File.WriteAllText(filePath, json);
+	}
 
-        string json = JsonUtility.ToJson(new MatrixArrayWrapper() { matrices = offsetData });
-        File.WriteAllText(Path.Combine(Application.dataPath, filePath), json);
-    }
 }
 
 [Serializable]
@@ -46,8 +52,3 @@ public class MatrixDataArrayWrapper
     public MatrixData[] matrices;
 }
 
-[Serializable]
-public class MatrixArrayWrapper
-{
-    public float[][] matrices;
-}
