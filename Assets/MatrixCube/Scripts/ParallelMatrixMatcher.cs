@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class ParallelMatrixMatcher : MonoBehaviour
+public class ParallelMatrixMatcher 
 {
 	public async Task<List<Matrix4x4>> FindAllMatchingOffsetsAsync(List<Matrix4x4> model, List<Matrix4x4> space)
 	{
