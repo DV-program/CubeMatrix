@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 424292051685196023}
   - component: {fileID: 2560878296906665964}
   - component: {fileID: 3370499211844232827}
-  - component: {fileID: -3066096288169601195}
   m_Layer: 0
   m_Name: MatchingCube
   m_TagString: Untagged
@@ -84,15 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!210 &-3066096288169601195
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695936500315503249}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_SortAtRoot: 0

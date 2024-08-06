@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,13 +65,12 @@ public class MatrixVisualizer : MonoBehaviour
 			while (elapsedTime < lerpDuration)
 			{
 				float lerpFactor = elapsedTime / lerpDuration;
-				Debug.Log(elapsedTime);
-				Debug.Log(lerpFactor);
 				TransformCubes(matchingCubes, startDatas, targetDatas, lerpFactor);
 
 				elapsedTime += Time.deltaTime;
 				yield return null;
 			}
+			TransformCubes(matchingCubes, startDatas, targetDatas, 1f);
 			yield return new WaitForSeconds(1f);
 		}
 	}
@@ -84,9 +84,9 @@ public class MatrixVisualizer : MonoBehaviour
 			Vector3 targetPosition = targetMatrices[i].GetPosition();
 			Quaternion targetRotation = Quaternion.LookRotation(targetMatrices[i].GetColumn(2), targetMatrices[i].GetColumn(1));
 			Vector3 targetScale = new Vector3(
-				targetMatrices[i].GetColumn(0).magnitude,
-				targetMatrices[i].GetColumn(1).magnitude,
-				targetMatrices[i].GetColumn(2).magnitude
+				Mathf.Abs(targetMatrices[i].GetColumn(0).magnitude),
+				Mathf.Abs(targetMatrices[i].GetColumn(1).magnitude),
+				Mathf.Abs(targetMatrices[i].GetColumn(2).magnitude)
 			) * cubeSize;
 			transformDatas.Add(new TransformData(targetPosition, targetRotation, targetScale));
 		}
@@ -109,7 +109,7 @@ public class MatrixVisualizer : MonoBehaviour
 			GameObject cube = cubes[i];
 			cube.transform.position = Vector3.Lerp(startDatas[i]._position , targetDatas[i]._position, lerpFactor);
 			cube.transform.rotation = Quaternion.Slerp(startDatas[i]._rotation, targetDatas[i]._rotation, lerpFactor);
-			cube.transform.localScale = Vector3.Lerp(startDatas[i]._scale, targetDatas[i]._scale, lerpFactor);
+			cube.transform.localScale = Vector3.Lerp(startDatas[i]._scale, targetDatas[i]._scale + new Vector3(000.1f, 000.1f, 000.1f), lerpFactor);
 		}
 	}
 	public class TransformData

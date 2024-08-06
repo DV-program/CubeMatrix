@@ -368,7 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spacePrefab: {fileID: 2797645712218799091, guid: a7e9996a102663447ad24a1e448e0c0a, type: 3}
   matchingPrefab: {fileID: 1695936500315503249, guid: e831cac44e476f04abf429f6b97f9344, type: 3}
-  lerpDuration: 2
+  lerpDuration: 3
   cubeSize: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
