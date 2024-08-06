@@ -15,15 +15,11 @@ public class ParallelMatrixMatcher
 			Parallel.ForEach(space, spaceMatrix =>
 			{
 				List<Matrix4x4> localOffsets = new List<Matrix4x4>();
+				Matrix4x4 localOffset = spaceMatrix * model[0].inverse;
 
-				foreach (var modelMatrix in model)
+				if (IsOffsetValidForAll(model, spaceSet, localOffset))
 				{
-					Matrix4x4 offset = spaceMatrix * modelMatrix.inverse;
-
-					if (IsOffsetValidForAll(model, spaceSet, offset))
-					{
-						localOffsets.Add(offset);
-					}
+					localOffsets.Add(localOffset);
 				}
 
 				lock (lockObject)
